@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: poppins;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            place-items: center;
+            place-content: center;
+            background: #0e1246;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            padding: 20px 20px;
+            border-radius: 2px;
+            place-items: center;
+            height: 218px;
+            transition: .2s;
+        }
+        .container.activee{
+            height: 400px;
+        }
+        h3{
+            margin-bottom: 12px;
+        }
+        .container input {
+            margin: 12px;
+            width: 230px;
+            padding: 10px 5px;
+            border: 1px solid;
+            border-radius: 2px;
+            outline: none;
+        }
+        .container button{
+            margin: 12px;
+            padding: 10px 0;
+            background-color: rgb(21, 107, 245);
+            outline: none;
+            color: #fff;
+            font-weight: 500;
+            border: none;
+            border-radius: 2px;
+            width: 230px;
+            cursor: pointer;
+        }
+        .container .qrcode{
+            width: 230px;
+            height: 230px;
+            border: 1px solid #6a6a6d;
+            display: none;
+            place-items: center;
+            place-content: center;
+
+        }
+        .container .qractive{
+            display: flex;
+            opacity: 1;
+        }
+        .active .qrcode img {
+            transition: 2s;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container ">
+        <h3>QR CODE Generator</h3>
+        <input type="text" name="qrtext" id="qrtext"  placeholder="Enter your text">
+        <button class="click">Generate QRcode</button>
+        <div class="qrcode"><img src="" alt=""></div>
+    </div>
+</body>
+<script>
+    var click = document.querySelector(".click");
+    var qrcode = document.querySelector(".qrcode");
+    var qrimage = document.querySelector("img")
+    var container = document.querySelector(".container")
+    
+    
+    click.addEventListener("click" , function(){
+        let qrtext = document.querySelector("#qrtext").value;
+        if (!qrtext) return;
+        click.innerHTML = "Generate QRcode ...";
+        qrimage.src = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+qrtext;
+        qrimage.addEventListener("load" , ()=>{
+            container.classList.add("activee") ;
+            qrcode.classList.add("qractive")
+            click.innerHTML = "Generate QRcode ";
+            
+        })
+
+})
+</script>
+</html>
